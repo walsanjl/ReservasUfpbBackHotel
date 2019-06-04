@@ -29,18 +29,14 @@ public class HotelResource {
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		
 		Hotel obj = hotelService.find(id);
 		return ResponseEntity.ok().body(obj);
-		
 	}
 	
 	@RequestMapping(value = "/uf/{uf}", method = RequestMethod.GET)
-	public ResponseEntity<?> findByUf(@PathVariable String uf) {
-		
+	public ResponseEntity<?> findByUf(@PathVariable String uf) {	
 		List<Hotel> lista = hotelService.findByUf(uf);
 		return ResponseEntity.ok().body(lista);
-		
 	}
 	
 	@RequestMapping(value = "/estrelas/{estrelas}", method = RequestMethod.GET)
@@ -66,6 +62,18 @@ public class HotelResource {
 		List<Quarto> listaDeQuartos = quartoService.findByHotel_idAndStatusAndQtdeDeLeitos(hotel_id, status, qtdeDeLeitos);
 		return ResponseEntity.ok().body(listaDeQuartos);
 	}
+	
+	@RequestMapping(value = "id_hotel/{hotel_id}/id_quarto/{quarto_id}/cliente", method = RequestMethod.GET)
+	public ResponseEntity<?> findClienteByQuartoAndHotel(@PathVariable Integer hotel_id, @PathVariable Integer quarto_id) {
+		Quarto quarto = quartoService.findByHotel_idAndQuarto_id(hotel_id, quarto_id);
+		return ResponseEntity.ok().body(quarto.getCliente());
+	}
+	
+	@RequestMapping(value = "id_hotel/{hotel_id}/quarto", method = RequestMethod.GET)
+	public ResponseEntity<?> findQuartosByHotel_id(@PathVariable Integer hotel_id) {
+		List<Quarto> listaDeQuartos = quartoService.findByHotel_id(hotel_id);
+		return ResponseEntity.ok().body(listaDeQuartos);
+	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Hotel>> findAll() {
@@ -76,7 +84,6 @@ public class HotelResource {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody Hotel obj) {
 		obj = hotelService.insert(obj);
-		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}

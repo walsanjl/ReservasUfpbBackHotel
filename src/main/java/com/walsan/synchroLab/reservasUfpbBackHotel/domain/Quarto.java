@@ -25,6 +25,10 @@ public class Quarto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "hotel_id")
 	private Hotel hotel;
+
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
 	
 	public Quarto() {
 	}
@@ -84,6 +88,14 @@ public class Quarto implements Serializable {
 
 	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	@Override

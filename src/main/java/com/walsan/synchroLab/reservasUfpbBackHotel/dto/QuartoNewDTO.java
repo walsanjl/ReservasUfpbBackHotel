@@ -14,6 +14,9 @@ public class QuartoNewDTO implements Serializable {
 	//dados do hotel
 	private Integer idDoHotel;
 	
+	//dados do cliente
+	private Integer idDoCliente;
+	
 	public QuartoNewDTO() {
 	}
 
@@ -55,5 +58,13 @@ public class QuartoNewDTO implements Serializable {
 
 	public void setIdDoHotel(Integer idDoHotel) {
 		this.idDoHotel = idDoHotel;
+	}
+
+	public Integer getIdDoCliente() {
+		return idDoCliente;
+	}
+
+	public void setIdDoCliente(Integer idDoCliente) {
+		this.idDoCliente = idDoCliente;
 	}
 }
