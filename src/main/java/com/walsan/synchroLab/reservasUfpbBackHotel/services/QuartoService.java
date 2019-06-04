@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.walsan.synchroLab.reservasUfpbBackHotel.domain.Cliente;
 import com.walsan.synchroLab.reservasUfpbBackHotel.domain.Quarto;
 import com.walsan.synchroLab.reservasUfpbBackHotel.dto.QuartoNewDTO;
+import com.walsan.synchroLab.reservasUfpbBackHotel.repositories.ClienteRepository;
 import com.walsan.synchroLab.reservasUfpbBackHotel.repositories.HotelRepository;
 import com.walsan.synchroLab.reservasUfpbBackHotel.repositories.QuartoRepository;
 
@@ -20,6 +21,9 @@ public class QuartoService {
 	
 	@Autowired
 	private HotelRepository hotelRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
 	
 	public Quarto find(Integer id) {
 		Optional<Quarto> obj = quartoRepository.findById(id);
@@ -52,7 +56,11 @@ public class QuartoService {
 	public Quarto fromDTO(QuartoNewDTO objDto) {
 		Quarto quarto =  new Quarto(null, objDto.getNumeroDoQuarto(), objDto.getQtdeDeLeitos(), objDto.getPreco(), objDto.getStatus());
 		quarto.setHotel( hotelRepository.findById(objDto.getIdDoHotel()).get() );
-		quarto.setCliente( new Cliente() );		//o quarto inicia com um objeto Cliente vazio
+		if(objDto.getIdDoCliente() != 0) {
+			quarto.setCliente( clienteRepository.findById(objDto.getIdDoCliente()).get() );
+		} else {
+			//quarto.setCliente( new Cliente() );		//o quarto inicia com um objeto Cliente vazio
+		}
 		return quarto;
 	}
 	

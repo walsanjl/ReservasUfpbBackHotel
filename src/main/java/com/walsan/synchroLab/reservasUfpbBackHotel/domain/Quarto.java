@@ -2,6 +2,7 @@ package com.walsan.synchroLab.reservasUfpbBackHotel.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +27,7 @@ public class Quarto implements Serializable {
 	@JoinColumn(name = "hotel_id")
 	private Hotel hotel;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 	
